@@ -1,12 +1,11 @@
 {
-  "name": "open-codex",
+  "name": "@codecc/open-codex",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.js",
+  "description": "open ai agent",
+  "main": "dist/cjs/src/index.js",
+  "module": "dist/esm/src/index.js",
+  "types": "dist/types/src/index.d.js",
   "scripts": {
-    "_postinstall": "husky install",
     "build": "npm run build:cjs && npm run build:esm && npm run build:types && node tools/after-build.js",
     "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
     "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
@@ -14,8 +13,12 @@
     "clean": "node tools/cleanup",
     "package": "npm run build && npm pack",
     "test": "jest --no-cache --runInBand",
-    "test:cov": "jest --coverage --no-cache --runInBand"
+    "test:cov": "jest --coverage --no-cache --runInBand",
+    "l": "npm run build && npm link --local"
   },
+  "bin": {
+    "codex": "./dist/cjs/src/cli.js"
+  }, 
   "engines": {
     "node": ">=14"
   },
@@ -40,6 +43,9 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "commander": "^14.0.2",
+    "dotenv": "^17.2.3",
+    "openai": "^6.7.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
